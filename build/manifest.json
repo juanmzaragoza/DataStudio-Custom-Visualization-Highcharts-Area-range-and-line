@@ -1,0 +1,24 @@
+{
+  "name": "Area range and line visualization",
+  "organization": "None",
+  "description": "Area range and line visualization",
+  "logoUrl": "https://logo",
+  "organizationUrl": "https://url",
+  "supportUrl": "https://url",
+  "privacyPolicyUrl": "https://url",
+  "termsOfServiceUrl": "https://url",
+  "packageUrl": "https://url",
+  "devMode": true,
+  "components": [
+    {
+      "name": "rangeAndLineViz",
+      "description": "My first Community Visualization",
+      "iconUrl": "https://url",
+      "resource": {
+        "js": "gs://community-viz-ds/tutorial/index.js",
+        "config": "gs://community-viz-ds/tutorial/index.json",
+        "css": "gs://community-viz-ds/tutorial/index.css"
+      }
+    }
+  ]
+}
