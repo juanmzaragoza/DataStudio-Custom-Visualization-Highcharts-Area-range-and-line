@@ -56,5 +56,18 @@
         }
       ]
     }
+  ],
+  "style": [
+    {
+      "id": "color",
+      "label": "Colors",
+      "elements": [
+        {
+          "type": "FONT_COLOR",
+          "id": "themeColor",
+          "label": "Theme Color"
+        }
+      ]
+    }
   ]
 }

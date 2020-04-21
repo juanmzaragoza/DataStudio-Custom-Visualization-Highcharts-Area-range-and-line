@@ -99,5 +99,11 @@ export const message = {
       },
     ],
   },
-  style: {},
+  style: {
+    themeColor: {
+      value: {
+        color: '#6ed597'
+      }
+    }
+  },
 };

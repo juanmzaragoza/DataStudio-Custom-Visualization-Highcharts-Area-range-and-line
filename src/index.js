@@ -14,10 +14,112 @@ require('highcharts/modules/funnel')(Highcharts);
 // change this to 'false' before deploying
 export const LOCAL = false;
 
+// Load the fonts
+Highcharts.createElement('link', {
+  href: 'https://fonts.googleapis.com/css?family=Signika:400,700',
+  rel: 'stylesheet',
+  type: 'text/css'
+}, null, document.getElementsByTagName('head')[0]);
+
+
+
+function changeThemeColor(color) {
+  /*, '#8085e9', '#8d4654', '#7798BF', '#aaeeee',
+      '#ff0066', '#eeaaee', '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'*/
+  Highcharts.theme = {
+    colors: [color],
+    chart: {
+      backgroundColor: null,
+      style: {
+        fontFamily: 'Signika, serif'
+      }
+    },
+    title: {
+      style: {
+        color: 'black',
+        fontSize: '16px',
+        fontWeight: 'bold'
+      }
+    },
+    subtitle: {
+      style: {
+        color: 'black'
+      }
+    },
+    tooltip: {
+      borderWidth: 0
+    },
+    labels: {
+      style: {
+        color: '#6e6e70'
+      }
+    },
+    legend: {
+      backgroundColor: '#E0E0E8',
+      itemStyle: {
+        fontWeight: 'bold',
+        fontSize: '13px'
+      }
+    },
+    xAxis: {
+      labels: {
+        style: {
+          color: '#6e6e70'
+        }
+      }
+    },
+    yAxis: {
+      labels: {
+        style: {
+          color: '#6e6e70'
+        }
+      }
+    },
+    plotOptions: {
+      series: {
+        shadow: true
+      },
+      candlestick: {
+        lineColor: '#404048'
+      },
+      map: {
+        shadow: false
+      }
+    },
+    // Highstock specific
+    navigator: {
+      xAxis: {
+        gridLineColor: '#D0D0D8'
+      }
+    },
+    rangeSelector: {
+      buttonTheme: {
+        fill: 'white',
+        stroke: '#C0C0C8',
+        'stroke-width': 1,
+        states: {
+          select: {
+            fill: '#D0D0D8'
+          }
+        }
+      }
+    },
+    scrollbar: {
+      trackBorderColor: '#C0C0C8'
+    }
+  };
+  // Apply the theme
+  Highcharts.setOptions(Highcharts.theme);
+}
+
 // write viz code here
 const drawViz = (data) => {
   let rowData = data.tables.DEFAULT;
-console.log(JSON.stringify(data))
+
+  // styles
+  let color = data.style.themeColor.value && data.style.themeColor.value.color? data.style.themeColor.value.color:'#6ed597';
+  changeThemeColor(color);
+
   // create element container
   const div = document.createElement('div');
   div.setAttribute('id', 'container');
