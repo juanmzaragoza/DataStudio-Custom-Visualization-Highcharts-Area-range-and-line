@@ -12,21 +12,21 @@ require('highcharts/modules/funnel')(Highcharts);
 
 // change this to 'true' for local development
 // change this to 'false' before deploying
-export const LOCAL = true;
+export const LOCAL = false;
 
 // write viz code here
 const drawViz = (data) => {
   let rowData = data.tables.DEFAULT;
-console.log(JSON.stringify(rowData))
+console.log(JSON.stringify(data))
   // create element container
   const div = document.createElement('div');
   div.setAttribute('id', 'container');
   document.body.appendChild(div);
 
-  const title = 'Some descriptive title';
-  const yAxisTitle = 'Y title';
-  const seriesName = 'Value';
-  const tooltipValueSuffix = '°C';
+  const title = '';
+  const seriesName = rowData[0]["nameValueID"] && rowData[0]["nameValueID"][0]? ' '+rowData[0]["nameValueID"][0]:data.fields.valueMetricID[0].name;
+  const tooltipValueSuffix = rowData[0]["unitMetricID"] && rowData[0]["unitMetricID"][0]? ' '+rowData[0]["unitMetricID"][0]:'';
+  const yAxisTitle = tooltipValueSuffix;
 
   let averages = rowData.map(function (row) {
     return [new Date(extractAValidDateFrom(row)).getTime(),row["valueMetricID"][0]];

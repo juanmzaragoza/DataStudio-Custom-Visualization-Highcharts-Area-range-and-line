@@ -37,6 +37,22 @@
           "options": {
             "max": 1
           }
+        },
+        {
+          "id": "unitMetricID",
+          "label": "Unit Metric",
+          "type": "DIMENSION",
+          "options": {
+            "max": 1
+          }
+        },
+        {
+          "id": "nameValueID",
+          "label": "Name Value",
+          "type": "DIMENSION",
+          "options": {
+            "max": 1
+          }
         }
       ]
     }

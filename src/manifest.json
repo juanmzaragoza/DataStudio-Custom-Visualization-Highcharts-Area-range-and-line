@@ -1,6 +1,6 @@
 {
   "name": "Area range and line visualization",
-  "organization": "None",
+  "organization": "JMZ",
   "description": "Area range and line visualization",
   "logoUrl": "https://logo",
   "organizationUrl": "https://url",
@@ -11,7 +11,7 @@
   "devMode": "DEVMODE_BOOL",
   "components": [
     {
-      "name": "rangeAndLineViz",
+      "name": "Range And Line Vizualization",
       "description": "My first Community Visualization",
       "iconUrl": "https://url",
       "resource": {
