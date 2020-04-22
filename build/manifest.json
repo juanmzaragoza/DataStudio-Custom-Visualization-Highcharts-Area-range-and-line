@@ -8,16 +8,16 @@
   "privacyPolicyUrl": "https://url",
   "termsOfServiceUrl": "https://url",
   "packageUrl": "https://url",
-  "devMode": false,
+  "devMode": true,
   "components": [
     {
       "name": "Range And Line Vizualization",
       "description": "My first Community Visualization",
       "iconUrl": "https://url",
       "resource": {
-        "js": "gs://community-viz-ds/index.js",
-        "config": "gs://community-viz-ds/index.json",
-        "css": "gs://community-viz-ds/index.css"
+        "js": "gs://community-viz-ds/tutorial/index.js",
+        "config": "gs://community-viz-ds/tutorial/index.json",
+        "css": "gs://community-viz-ds/tutorial/index.css"
       }
     }
   ]

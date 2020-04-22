@@ -1,6 +1,7 @@
 const dscc = require('@google/dscc');
 const viz = require('@google/dscc-scripts/viz/initialViz.js');
 const local = require('./localMessage.js');
+const _ = require('lodash');
 
 //const Highcharts = require('highcharts');
 import * as Highcharts from 'highcharts';
@@ -24,7 +25,8 @@ Highcharts.createElement('link', {
 
 function changeThemeColor(color) {
   Highcharts.theme = {
-    colors: [color],
+    colors: [color, '#8085e9', '#8d4654', '#7798BF', '#aaeeee',
+      '#ff0066', '#eeaaee', '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
     chart: {
       backgroundColor: null,
       style: {
@@ -122,17 +124,56 @@ const drawViz = (data) => {
   div.setAttribute('id', 'container');
   document.body.appendChild(div);
 
-  const title = '';
-  const seriesName = rowData[0]["nameValueID"] && rowData[0]["nameValueID"][0]? ' '+rowData[0]["nameValueID"][0]:data.fields.valueMetricID[0].name;
-  const tooltipValueSuffix = rowData[0]["unitMetricID"] && rowData[0]["unitMetricID"][0]? ' '+rowData[0]["unitMetricID"][0]:'';
-  const yAxisTitle = tooltipValueSuffix;
-
-  let averages = rowData.map(function (row) {
-    return [new Date(extractAValidDateFrom(row)).getTime(),row["valueMetricID"][0]];
+  // group by metric
+  const grouped = _.groupBy(rowData, function(row) {
+    return row['nameValueID'] && row['nameValueID'][0]? row['nameValueID'][0]:'no-value';
   });
 
-  let ranges = rowData.map(function (row) {
-    return [new Date(extractAValidDateFrom(row)).getTime(),row["minRangeMetricID"][0],row["maxRangeMetricID"][0]];
+  // build chart
+  const title = '';
+  const series = [];
+  const yAxisTitle = '';
+  const tooltipValueSuffix = '';
+  // build series
+  Object.entries(grouped).forEach((group,index) => {
+    const nameValue = group[0];
+    const rowData = group[1];
+
+    const seriesName = rowData[0]["unitMetricID"] && rowData[0]["unitMetricID"][0]? ' '+nameValue+' ('+rowData[0]["unitMetricID"][0]+')':nameValue+' (no-metric)';
+
+    let averages = rowData.map(function (row) {
+      return [new Date(extractAValidDateFrom(row)).getTime(),row["valueMetricID"][0]];
+    });
+
+    let ranges = rowData.map(function (row) {
+      return [new Date(extractAValidDateFrom(row)).getTime(),row["minRangeMetricID"][0],row["maxRangeMetricID"][0]];
+    });
+
+    series.push({
+      name: seriesName,
+      data: averages,
+      zIndex: 1,
+      marker: {
+        fillColor: 'white',
+        lineWidth: 2,
+        lineColor: Highcharts.getOptions().colors[index % Highcharts.getOptions().colors.length]
+      }
+    });
+
+    series.push({
+      name: 'Range',
+      data: ranges,
+      type: 'arearange',
+      lineWidth: 0,
+      linkedTo: ':previous',
+      color: Highcharts.getOptions().colors[index % Highcharts.getOptions().colors.length],
+      fillOpacity: 0.3,
+      zIndex: 0,
+      marker: {
+        enabled: false
+      }
+    });
+
   });
 
   // create chart
@@ -161,31 +202,7 @@ const drawViz = (data) => {
       valueSuffix: tooltipValueSuffix
     },
 
-    series: [
-      {
-        name: seriesName,
-        data: averages,
-        zIndex: 1,
-        marker: {
-          fillColor: 'white',
-          lineWidth: 2,
-          lineColor: Highcharts.getOptions().colors[0]
-        }
-      },
-      {
-        name: 'Range',
-        data: ranges,
-        type: 'arearange',
-        lineWidth: 0,
-        linkedTo: ':previous',
-        color: Highcharts.getOptions().colors[0],
-        fillOpacity: 0.3,
-        zIndex: 0,
-        marker: {
-          enabled: false
-        }
-      }
-    ]
+    series: series
   });
 };
 
