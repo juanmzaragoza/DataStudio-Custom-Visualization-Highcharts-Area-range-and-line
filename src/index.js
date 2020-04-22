@@ -12,7 +12,7 @@ require('highcharts/modules/funnel')(Highcharts);
 
 // change this to 'true' for local development
 // change this to 'false' before deploying
-export const LOCAL = true;
+export const LOCAL = false;
 
 // Load the fonts
 Highcharts.createElement('link', {
