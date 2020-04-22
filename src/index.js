@@ -12,7 +12,7 @@ require('highcharts/modules/funnel')(Highcharts);
 
 // change this to 'true' for local development
 // change this to 'false' before deploying
-export const LOCAL = false;
+export const LOCAL = true;
 
 // Load the fonts
 Highcharts.createElement('link', {
@@ -22,10 +22,7 @@ Highcharts.createElement('link', {
 }, null, document.getElementsByTagName('head')[0]);
 
 
-
 function changeThemeColor(color) {
-  /*, '#8085e9', '#8d4654', '#7798BF', '#aaeeee',
-      '#ff0066', '#eeaaee', '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'*/
   Highcharts.theme = {
     colors: [color],
     chart: {
@@ -148,7 +145,7 @@ const drawViz = (data) => {
     xAxis: {
       type: 'datetime',
       accessibility: {
-        rangeDescription: 'Range: Jul 1st 2009 to Jul 31st 2009.'
+        rangeDescription: 'Range: Jul 1st 2009 to Jul 31st 2049.'
       }
     },
 
