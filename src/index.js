@@ -25,8 +25,7 @@ Highcharts.createElement('link', {
 
 function changeThemeColor(color) {
   Highcharts.theme = {
-    colors: [color, '#8085e9', '#8d4654', '#7798BF', '#aaeeee',
-      '#ff0066', '#eeaaee', '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
+    colors: [color],
     chart: {
       backgroundColor: null,
       style: {
@@ -119,27 +118,29 @@ const drawViz = (data) => {
   let color = data.style.themeColor.value && data.style.themeColor.value.color? data.style.themeColor.value.color:'#6ed597';
   changeThemeColor(color);
 
-  // create element container
-  const div = document.createElement('div');
-  div.setAttribute('id', 'container');
-  document.body.appendChild(div);
-
   // group by metric
   const grouped = _.groupBy(rowData, function(row) {
     return row['nameValueID'] && row['nameValueID'][0]? row['nameValueID'][0]:'no-value';
   });
 
-  // build chart
-  const title = '';
-  const series = [];
-  const yAxisTitle = '';
-  const tooltipValueSuffix = '';
+
   // build series
   Object.entries(grouped).forEach((group,index) => {
     const nameValue = group[0];
     const rowData = group[1];
 
-    const seriesName = rowData[0]["unitMetricID"] && rowData[0]["unitMetricID"][0]? ' '+nameValue+' ('+rowData[0]["unitMetricID"][0]+')':nameValue+' (no-metric)';
+    // create element container
+    const div = document.createElement('div');
+    div.setAttribute('id', `container-${index}`);
+    div.setAttribute('class', 'container-chart');
+    document.body.appendChild(div);
+
+    // build chart
+    const title = '';
+    const yAxisTitle = rowData[0]["unitMetricID"] && rowData[0]["unitMetricID"][0]? ' '+' '+rowData[0]["unitMetricID"][0]+'':' (no-metric)';
+    const tooltipValueSuffix = yAxisTitle;
+
+    const seriesName = nameValue;
 
     let averages = rowData.map(function (row) {
       return [new Date(extractAValidDateFrom(row)).getTime(),row["valueMetricID"][0]];
@@ -149,60 +150,64 @@ const drawViz = (data) => {
       return [new Date(extractAValidDateFrom(row)).getTime(),row["minRangeMetricID"][0],row["maxRangeMetricID"][0]];
     });
 
-    series.push({
-      name: seriesName,
-      data: averages,
-      zIndex: 1,
-      marker: {
-        fillColor: 'white',
-        lineWidth: 2,
-        lineColor: Highcharts.getOptions().colors[index % Highcharts.getOptions().colors.length]
-      }
-    });
+    // create chart
+    Highcharts.chart(`container-${index}`, {
 
-    series.push({
-      name: 'Range',
-      data: ranges,
-      type: 'arearange',
-      lineWidth: 0,
-      linkedTo: ':previous',
-      color: Highcharts.getOptions().colors[index % Highcharts.getOptions().colors.length],
-      fillOpacity: 0.3,
-      zIndex: 0,
-      marker: {
-        enabled: false
-      }
-    });
+      chart: {
+        height: 300,
+        width: 400
+      },
 
-  });
-
-  // create chart
-  Highcharts.chart('container', {
-
-    title: {
-      text: title
-    },
-
-    xAxis: {
-      type: 'datetime',
-      accessibility: {
-        rangeDescription: 'Range: Jul 1st 2009 to Jul 31st 2049.'
-      }
-    },
-
-    yAxis: {
       title: {
-        text: yAxisTitle
-      }
-    },
+        text: title
+      },
 
-    tooltip: {
-      crosshairs: true,
-      shared: true,
-      valueSuffix: tooltipValueSuffix
-    },
+      xAxis: {
+        type: 'datetime',
+        accessibility: {
+          rangeDescription: 'Range: Jul 1st 2009 to Jul 31st 2049.'
+        }
+      },
 
-    series: series
+      yAxis: {
+        title: {
+          text: yAxisTitle
+        }
+      },
+
+      tooltip: {
+        crosshairs: true,
+        shared: true,
+        valueSuffix: tooltipValueSuffix
+      },
+
+      series: [
+        {
+          name: seriesName,
+          data: averages,
+          zIndex: 1,
+          marker: {
+            fillColor: 'white',
+            lineWidth: 2,
+            lineColor: Highcharts.getOptions().colors[index % Highcharts.getOptions().colors.length]
+          }
+        },
+        {
+          name: 'Range',
+          data: ranges,
+          type: 'arearange',
+          lineWidth: 0,
+          linkedTo: ':previous',
+          color: Highcharts.getOptions().colors[index % Highcharts.getOptions().colors.length],
+          fillOpacity: 0.3,
+          zIndex: 0,
+          marker: {
+            enabled: false
+          }
+        }
+      ]
+    });
+
   });
 };
 

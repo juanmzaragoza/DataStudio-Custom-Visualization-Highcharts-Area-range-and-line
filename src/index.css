@@ -14,8 +14,9 @@ code {
   margin: 0 auto;
 }
 
-#container {
-  height: 400px;
+.container-chart {
+  /*height: 400px;*/
+  float: left
 }
 
 .highcharts-figure, .highcharts-data-table table {
