@@ -1,7 +1,7 @@
 {
-  "name": "Area range and line visualization",
+  "name": "Area range and line visualization Multiple Charts",
   "organization": "JMZ",
-  "description": "Area range and line visualization",
+  "description": "Area range and line visualization with one series multiple charts",
   "logoUrl": "https://logo",
   "organizationUrl": "https://url",
   "supportUrl": "https://url",
@@ -11,8 +11,8 @@
   "devMode": "DEVMODE_BOOL",
   "components": [
     {
-      "name": "Range And Line Vizualization",
-      "description": "My first Community Visualization",
+      "name": "Range And Line Vizualization Multiple Charts",
+      "description": "Area range and line visualization with one series multiple charts",
       "iconUrl": "https://url",
       "resource": {
         "js": "YOUR_GCS_BUCKET/index.js",

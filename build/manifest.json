@@ -1,23 +1,23 @@
 {
-  "name": "Area range and line visualization",
+  "name": "Area range and line visualization Multiple Charts",
   "organization": "JMZ",
-  "description": "Area range and line visualization",
+  "description": "Area range and line visualization with one series multiple charts",
   "logoUrl": "https://logo",
   "organizationUrl": "https://url",
   "supportUrl": "https://url",
   "privacyPolicyUrl": "https://url",
   "termsOfServiceUrl": "https://url",
   "packageUrl": "https://url",
-  "devMode": true,
+  "devMode": false,
   "components": [
     {
-      "name": "Range And Line Vizualization",
-      "description": "My first Community Visualization",
+      "name": "Range And Line Vizualization Multiple Charts",
+      "description": "Area range and line visualization with one series multiple charts",
       "iconUrl": "https://url",
       "resource": {
-        "js": "gs://community-viz-ds/tutorial/index.js",
-        "config": "gs://community-viz-ds/tutorial/index.json",
-        "css": "gs://community-viz-ds/tutorial/index.css"
+        "js": "gs://community-viz-ds/index.js",
+        "config": "gs://community-viz-ds/index.json",
+        "css": "gs://community-viz-ds/index.css"
       }
     }
   ]

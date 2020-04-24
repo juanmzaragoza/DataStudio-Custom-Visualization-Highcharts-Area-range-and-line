@@ -110,6 +110,14 @@ function changeThemeColor(color) {
   Highcharts.setOptions(Highcharts.theme);
 }
 
+function removeAllContainers(){
+  const element = document.querySelectorAll('.container-chart');
+  if(element)
+    Array.prototype.forEach.call( element, function( node ) {
+      node.parentNode.removeChild( node );
+    });
+}
+
 // write viz code here
 const drawViz = (data) => {
   let rowData = data.tables.DEFAULT;
@@ -123,6 +131,8 @@ const drawViz = (data) => {
     return row['nameValueID'] && row['nameValueID'][0]? row['nameValueID'][0]:'no-value';
   });
 
+  // delete all older containers
+  removeAllContainers();
 
   // build series
   Object.entries(grouped).forEach((group,index) => {
@@ -166,13 +176,14 @@ const drawViz = (data) => {
         type: 'datetime',
         accessibility: {
           rangeDescription: 'Range: Jul 1st 2009 to Jul 31st 2049.'
-        }
+        },
       },
 
       yAxis: {
         title: {
           text: yAxisTitle
-        }
+        },
+        min: 0
       },
 
       tooltip: {
