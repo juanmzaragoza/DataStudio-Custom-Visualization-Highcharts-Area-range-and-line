@@ -21,6 +21,6 @@
   },
   "dependencies": {
     "highcharts": "^8.0.4",
-    "lodash": "^4.17.15"
+    "lodash": "^4.17.19"
   }
 }
