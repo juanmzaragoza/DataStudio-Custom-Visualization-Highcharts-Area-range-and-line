@@ -20,7 +20,7 @@
     "@google/dscc-scripts": "^1.0.15"
   },
   "dependencies": {
-    "highcharts": "^8.0.4",
+    "highcharts": "^8.1.1",
     "lodash": "^4.17.15"
   }
 }
